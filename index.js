@@ -61,7 +61,7 @@ app.get('/download', function (req, res, next) {
   })
 })
 
-app.listen(8080, function(err) {
+app.listen(process.env.PORT || 5000, function(err) {
   if (err) throw err
   console.log('listening on 8080')
 })
