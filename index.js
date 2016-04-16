@@ -13,7 +13,7 @@ var counter = js.readFileSync('./counter.json')
 var app = express()
 
 if (!fs.existsSync(rootFolder)){
-    fs.mkdirSync(rootFolder);
+  fs.mkdirSync(rootFolder);
 }
 
 app.use(bodyParser.json())
@@ -61,7 +61,6 @@ form.parse(req, function(err, fields, files) {
 
 app.get('/download', function (req, res, next) {
   fs.readdir(rootFolder, function (err, files) {
-    console.log(files)
     if (err) return res.status(500).send(err)
     if (files.length === 0) {
       return res.status(404).send({
@@ -91,6 +90,14 @@ app.get('/download', function (req, res, next) {
         }
       })
     }
+  })
+})
+
+app.get('/delete', function (req, res, next) {
+  rimraf(rootFolder, function (err) {
+    if (err) return res.status(500).send(err)
+    fs.mkdirSync(rootFolder)
+    return res.send(200)
   })
 })
    
