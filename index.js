@@ -38,8 +38,12 @@ app.get('/download', function (req, res, next) {
         message: 'No files left in directory'
       })
     } else {
-      var rand = Math.floor(Math.random() * files.length)
-      var videoFolder = path.join(rootFolder, files[rand])
+          var rand = Math.floor(Math.random() * files.length)
+          var videoFolder = path.join(rootFolder, files[rand])
+      while(videoFolder==null){
+         rand = Math.floor(Math.random() * files.length)
+         videoFolder = path.join(rootFolder, files[rand])
+      }
       fs.readdir(videoFolder, function (err, files) {
         if (err) return res.status(500).send(err)
         var file = files[0]
@@ -65,7 +69,7 @@ app.get('/download', function (req, res, next) {
 })
 
  //app.listen(8080, function(err) {
- //  if (err) throw err
+  // if (err) throw err
  //  console.log('listening on 8080')
  //})
 
