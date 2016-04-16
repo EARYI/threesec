@@ -6,7 +6,6 @@ var rimraf = require('rimraf')
 var multiparty = require('multiparty')
 var path = require('path')
 var js = require('jsonfile')
-// var ffmpeg = require('fluent-ffmpeg')
 
 var rootFolder = __dirname + '/videos/'
 var counter = js.readFileSync('./counter.json')
@@ -21,6 +20,7 @@ app.use(bodyParser.json())
 app.post('/upload', function (req, res, next) {
 var form = new multiparty.Form()
 form.parse(req, function(err, fields, files) {
+    if (!files || !files.video || files.video.length === 0) return res.status(500).send('No file')
     counter.index += 1
     var fileName = rootFolder + counter.index
 
@@ -30,26 +30,7 @@ form.parse(req, function(err, fields, files) {
         if (err) return res.status(500).send(err)
         fs.writeFile(fileName + '/1.mp4', data, function (err) {
           if (err) return res.status(500).send(err)
-          // var proc = ffmpeg()
-          // .input(fs.createReadStream(fileName + '/1.mp4'))
-          // .output(fs.createWriteStream(fileName + '/1.mp4'))
-          // .audioCodec('libfaac')
-          // .videoCodec('libx264')
-          // .size('320x200')
-          // .on('start', function() {
-          //   console.log('file has been starting to convert')
-          // })
-          // .on('progress', function(progress) {
-          //   console.log('Processing: ' + progress.percent + '% done')
-          // })
-          // .on('end', function() {
-          //   console.log('file has been converted succesfully')
-          // })
-          // .on('error', function(err) {
-          //   console.log('an error happened: ' + err.message)
-          // })
-          // .run()
-          js.writeFile('./counter.json', counter, function (err) {
+            js.writeFile('./counter.json', counter, function (err) {
             if (err) return res.status(500).send(err)
             return res.send(200)
           })
