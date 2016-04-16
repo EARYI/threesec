@@ -52,14 +52,22 @@ app.get('/download', function (req, res, next) {
           })
         } else {
           fs.rename(path.join(videoFolder, file), path.join(videoFolder, number + '.mp4'), function (err) {
-            if (err) throw err
-            return res.send(file)
+            if (err) return res.send(500)
+            fs.readFile(path.join(videoFolder, number + '.mp4'), function (err, data) {
+              if (err) return res.send(500)
+              return res.send(new Buffer(data, 'binary'))
+            })
           })  
         }
       })
     }
   })
 })
+
+// app.listen(8080, function(err) {
+//   if (err) throw err
+//   console.log('listening on 8080')
+// })
 
 app.listen(process.env.PORT || 5000, function(err) {
   if (err) throw err
