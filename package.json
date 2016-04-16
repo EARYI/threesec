@@ -11,7 +11,9 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "fluent-ffmpeg": "^2.0.1",
     "handbrake-js": "^2.0.10",
+    "jsonfile": "^2.2.3",
     "mkdirp": "^0.5.1",
     "multiparty": "^4.1.2",
     "rimraf": "^2.5.2"
