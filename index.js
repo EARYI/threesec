@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 var rimraf = require('rimraf')
 var multiparty = require('multiparty')
 var path = require('path')
+
 var rootFolder = __dirname + '/videos/'
 var index = 0;
 var app = express()
@@ -69,11 +70,11 @@ app.get('/download', function (req, res, next) {
 })
 
  //app.listen(8080, function(err) {
-  // if (err) throw err
- //  console.log('listening on 8080')
+ //  if (err) throw err
+  // console.log('listening on 8080')
  //})
 
 app.listen(process.env.PORT || 8080, function(err) {
-  if (err) throw err
+ if (err) throw err
   console.log('listening on 8080')
 })
