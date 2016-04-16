@@ -25,7 +25,7 @@ form.parse(req, function(err, fields, files) {
     var fileName = rootFolder + counter.index
 
     mkdirp(fileName, function (err) {
-      if (err) return res.status(500).send(err)
+      if (err) return res.status(400).send(err)
       fs.readFile(files.video[0].path, function (err, data) {
         if (err) return res.status(500).send(err)
         fs.writeFile(fileName + '/1.mp4', data, function (err) {
