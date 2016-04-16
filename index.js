@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.post('/upload', function (req, res, next) {
 var form = new multiparty.Form()
 form.parse(req, function(err, fields, files) {
-    if (!files || !files.video || files.video.length === 0) return res.status(500).send('No file')
+    
     counter.index += 1
     var fileName = rootFolder + counter.index
 
